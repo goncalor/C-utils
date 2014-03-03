@@ -25,7 +25,7 @@ list *LSTadd(list *next, Item item)
 	return new;
 }
 
-/* removes to_remove from list. returns pointer to next element in list. prev is edited so that it points to the element in list following to_remove. if to_remove is NULL, prev element will point to NULL and NULL is returned.if prev == NULL it means you want to remove the first element of the list.*/
+/* removes to_remove from list. returns pointer to the element in list after to_remove. prev is edited so that it points to the element in list following to_remove. if to_remove is NULL, prev element will point to NULL and NULL is returned.if prev == NULL it means you want to remove the first element of the list.*/
 list *LSTremove(list *prev, list *to_remove, void(*free_item)(Item))
 {
 	list *aux;
@@ -39,6 +39,7 @@ list *LSTremove(list *prev, list *to_remove, void(*free_item)(Item))
 	else
 	{
 		aux = to_remove->next;
+		(*free_item)(to_remove->item);
 		free(to_remove);
 		if(prev!=NULL)
 			prev->next = aux;
@@ -81,7 +82,7 @@ list *LSTfollowing(list *current)
 }
 
 /* applies the function pointed to by function to the item inside element. item can be used to pass information to function. returns the return value of function, which should then be properly cast to the return type of function */
-Item LSTapply(list *element, void *(*function)(Item, Item), Item item)
+Item LSTapply(list *element, Item (*function)(Item, Item), Item item)
 {
 	return (*function)(element->item, item);
 }
