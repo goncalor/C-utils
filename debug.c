@@ -1,4 +1,3 @@
-#include "debug.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -12,7 +11,7 @@ void print_bytes(void * to_print, uint32_t size){
     printf("[ ");
     for(i = 0; i < size; i++)
     {
-    printf("%02x ", ((unsigned char *) to_print)[i]);
+        printf("%02x ", ((unsigned char *) to_print)[i]);
     }
     printf("]\n");
 }
